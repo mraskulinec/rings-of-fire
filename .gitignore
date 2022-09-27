@@ -1,0 +1,55 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+docs
+productionDocs
+
+public/images/dev
+public/models
+.idea
+src/A2Solution
+
+*.zip
+# yarn.lock is necessary to make sure we are using the correct library version
+
+public/images/psht
+public/images/portraits
+
+ignore
+src/tests/anigraph_tests
+junit.xml
+
+src/anigraph/tsconfig.json
+src/anigraph/typedoc.json
+src/anigraph/AnigraphDocs
+
+# dependencies
+/node_modules
+/docs/hierarchy/node_modules
+/docs/hierarchy/generator/node_modules
+/docs/hierarchy/hierarchy-graph/node_modules
+/.pnp
+.pnp.js
+
+# testing
+/coverage
+
+# production
+/build
+
+# misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Docs: generated Files
+/docs/hierarchy/build
+/docs/hierarchy/productionDocs
+/docs/hierarchy/docs
+docs/hierarchy/hierarchy-graph/build
+/src/ParticleSystem/
