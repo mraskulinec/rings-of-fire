@@ -11,6 +11,8 @@ import {CustomSceneModel} from "./ExampleScenes/PolygonTypeScene/CustomSceneMode
 import {CustomSceneController} from "./ExampleScenes/PolygonTypeScene/CustomSceneController";
 import {ParticleSystemSceneModel} from "./ExampleScenes/ParticleScene/ParticleSystemSceneModel";
 import {ParticleSystemSceneController} from "./ExampleScenes/ParticleScene/ParticleSystemSceneController";
+import {FireSceneModel} from "./FireScene/FireSceneModel";
+import {FireSceneController} from "./FireScene/FireSceneController";
 
 let appState = GetAppState();
 
@@ -19,9 +21,9 @@ let appState = GetAppState();
 /**
  * This would be good starter code for a project like the pyramid example we provide. It even has some of the controls set up already.
  */
-const SceneModel = new CustomSceneModel();
-SceneModel.confirmInitialized();
-const SceneController = new CustomSceneController(SceneModel);
+// const SceneModel = new CustomSceneModel();
+// SceneModel.confirmInitialized();
+// const SceneController = new CustomSceneController(SceneModel);
 
 /**
  * This example is an empty scene. Room to fill with your hopes and dreams...
@@ -45,6 +47,10 @@ const SceneController = new CustomSceneController(SceneModel);
 // const SceneModel = new ParticleSystemSceneModel();
 // SceneModel.confirmInitialized();
 // const SceneController = new ParticleSystemSceneController(SceneModel);
+
+const FireModel = new FireSceneModel();
+FireModel.confirmInitialized();
+const SceneController = new FireSceneController(FireModel);
 
 
 
