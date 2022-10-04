@@ -110,9 +110,7 @@ export class AAppState extends AHandlesEvents{
         let specs:GUIControlSpec={
                 value: initialValue,
                 options: options,
-                onChange: (v: any) => {
-                self._GetOnChangeForName(name);
-            },
+                onChange: self._GetOnChangeForName(name),
             ...otherSpecs
         }
         return specs;
