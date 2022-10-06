@@ -70,8 +70,10 @@ export class ParticleSystem2DModel extends BasicParticleSystem2DModel{
                     p.life += 1;
                     this.recenter(p);
                 } else {
+                    //linearly decrease radius depending on lifespan
                     p.radius = this.radius - ((t-p.spawntime) % this.lifespan) / this.lifespan
                     p.position = (p.init_pos).plus(V2(Math.cos(((t-p.spawntime) % this.lifespan) + p.id), this.speed * ((t-p.spawntime) % this.lifespan)));
+                    //linearly move from RGB(1,1,0) to RGB(1,0,0)
                     p.color = Color.FromRGBA(1,1-(((t-p.spawntime) % this.lifespan) / this.lifespan),0);
                 }
             }
