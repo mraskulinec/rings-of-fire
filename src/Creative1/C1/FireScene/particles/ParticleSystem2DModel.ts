@@ -20,12 +20,12 @@ export class ParticleSystem2DModel extends BasicParticleSystem2DModel{
 
     exampleParticleParam:number=1
 
-    lifespan = 1.25;
+    lifespan = 1;
     width = 1.5;
     height = 0.75;
-    nParticles = 100;
+    nParticles = 150;
     radius = 1.25;
-    speed = 7;
+    speed = 10;
     get particles(): Particle[] {
         return this._particles as Particle[];
     };
