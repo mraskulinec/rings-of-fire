@@ -11,14 +11,13 @@ import {
 import {Particle} from "./Particle";
 
 enum AppStateKeys{
-    ParticleColor="ParticleColor"
+    ParticleColor="ParticleColor",
+    ParticleRadius="ParticleRadius",
 }
 
 @ASerializable("ParticleSystem2DModel")
 export class ParticleSystem2DModel extends BasicParticleSystem2DModel{
     static AppStateKeys = AppStateKeys;
-
-    exampleParticleParam:number=1
 
     particleColor:Color;
     nParticles:number;
@@ -75,6 +74,7 @@ export class ParticleSystem2DModel extends BasicParticleSystem2DModel{
         for (let i = 0; i < this.nParticles; i++) {
             let p = this.particles[i];
             p.color = color;
+            p.radius = this.radius;
         }
     }
 

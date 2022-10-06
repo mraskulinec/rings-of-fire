@@ -25,6 +25,12 @@ export class FireSceneModel extends CreativeSceneModelBase {
              self.particleSystem.signalParticleUpdate();
         })
 
+        appState.addSliderControl(ParticleSystem2DModel.AppStateKeys.ParticleRadius, 1.4, 1, 2, 0.05);
+        this.subscribeToAppState(ParticleSystem2DModel.AppStateKeys.ParticleRadius,(v:number)=>{
+            self.particleSystem.radius = v;
+            self.particleSystem.signalParticleUpdate();
+        })
+
         this.particleSystem = new ParticleSystem2DModel();
         this.particleSystem.init();
         this.addChild(this.particleSystem);
