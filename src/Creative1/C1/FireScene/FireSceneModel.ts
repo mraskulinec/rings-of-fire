@@ -19,10 +19,10 @@ export class FireSceneModel extends CreativeSceneModelBase {
         /**
          * Add AppState controls here
          */
-        appState.addSliderControl(ParticleSystem2DModel.AppStateKeys.ExampleParticleParam, 1, -10, 10, 0.01);
-        this.subscribeToAppState(ParticleSystem2DModel.AppStateKeys.ExampleParticleParam,(v:number)=>{
-            self.particleSystem.exampleParticleParam = v;
-            self.particleSystem.signalParticleUpdate();
+         appState.addColorControl(ParticleSystem2DModel.AppStateKeys.ParticleColor, new Color(1, 1, 0))
+         this.subscribeToAppState(ParticleSystem2DModel.AppStateKeys.ParticleColor, (color:Color)=>{
+             self.particleSystem.particleColor = color;
+             self.particleSystem.signalParticleUpdate();
         })
 
         this.particleSystem = new ParticleSystem2DModel();

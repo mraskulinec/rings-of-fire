@@ -11,7 +11,7 @@ import {
 import {Particle} from "./Particle";
 
 enum AppStateKeys{
-    ExampleParticleParam="ExampleParticleParam"
+    ParticleColor="ParticleColor"
 }
 
 @ASerializable("ParticleSystem2DModel")
@@ -20,12 +20,25 @@ export class ParticleSystem2DModel extends BasicParticleSystem2DModel{
 
     exampleParticleParam:number=1
 
-    lifespan = 1.1;
-    width = 1.5;
-    height = 0.75;
-    nParticles = 150;
-    radius = 1.4;
-    speed = 10;
+    particleColor:Color;
+    nParticles:number;
+    lifespan:number;
+    width:number;
+    height:number; 
+    radius:number;
+    speed:number;
+
+    constructor() {
+        super();
+        this.lifespan = 1.1; 
+        this.particleColor = Color.FromRGBA(1, 1, 0)
+        this.width = 1.5;
+        this.height = 0.75;
+        this.nParticles = 150;
+        this.radius = 1.4;
+        this.speed = 10;
+    }
+
     get particles(): Particle[] {
         return this._particles as Particle[];
     };
@@ -52,10 +65,18 @@ export class ParticleSystem2DModel extends BasicParticleSystem2DModel{
         for(let i=0;i<this.nParticles;i++){
             let s_time = i*this.lifespan/this.nParticles //the spawntime of the particle
             let life = this.lifespan*(2*Math.random()/5+0.6)
-            this.particles.push(new Particle(i,life,s_time,V2(this.rand(this.width),this.rand(this.height)), 0, Color.FromRGBA(1,1,0)))
+            this.particles.push(new Particle(i,life,s_time,V2(this.rand(this.width),this.rand(this.height)), 0, this.particleColor))
         }
     }
 
+    signalParticleUpdate() {
+        super.signalParticleUpdate();
+        let color = this.particleColor;
+        for (let i = 0; i < this.nParticles; i++) {
+            let p = this.particles[i];
+            p.color = color;
+        }
+    }
 
     getColorForParticle(p: Particle): Color {
         return p.color;
