@@ -24,7 +24,7 @@ export class ParticleSystem2DModel extends BasicParticleSystem2DModel{
     width = 1.5;
     height = 0.75;
     nParticles = 150;
-    radius = 1.25;
+    radius = 1.3;
     speed = 10;
     get particles(): Particle[] {
         return this._particles as Particle[];
@@ -42,7 +42,8 @@ export class ParticleSystem2DModel extends BasicParticleSystem2DModel{
     init(): void {
         for(let i=0;i<this.nParticles;i++){
             let s_time = i*this.lifespan/this.nParticles //the spawntime of the particle
-            this.particles.push(new Particle(i,s_time,V2(this.rand(this.width),this.rand(this.height)), 0, Color.FromRGBA(1,1,0)))
+            let life = this.lifespan*(Math.random()/4+0.75)
+            this.particles.push(new Particle(i,life,s_time,V2(this.rand(this.width),this.rand(this.height)), 0, Color.FromRGBA(1,1,0)))
         }
     }
 
@@ -65,16 +66,19 @@ export class ParticleSystem2DModel extends BasicParticleSystem2DModel{
                 p.life+=1;
             }
             if (p.life > 0) { //if the particle is visible
-                if ((t - p.spawntime) / this.lifespan > p.life) {
+                if ((t - p.spawntime) / p.lifespan >= p.life) {
                     //if the particle has recently been respawned
                     p.life += 1;
                     this.recenter(p);
                 } else {
                     //linearly decrease radius depending on lifespan
-                    p.radius = this.radius - ((t-p.spawntime) % this.lifespan) / this.lifespan
-                    p.position = (p.init_pos).plus(V2(Math.cos(((t-p.spawntime) % this.lifespan) + p.id), this.speed * ((t-p.spawntime) % this.lifespan)));
+                    p.radius = this.radius - this.radius*((t-p.spawntime) % p.lifespan) / p.lifespan
+                    if (p.radius <= 0.15) {
+                        p.radius = 0;
+                    }
+                    p.position = (p.init_pos).plus(V2(Math.cos(((t-p.spawntime) % p.lifespan) + p.id), this.speed * ((t-p.spawntime) % p.lifespan)));
                     //linearly move from RGB(1,1,0) to RGB(1,0,0)
-                    p.color = Color.FromRGBA(1,1-(((t-p.spawntime) % this.lifespan) / this.lifespan),0);
+                    p.color = Color.FromRGBA(1,1-(((t-p.spawntime) % p.lifespan) / p.lifespan),0);
                 }
             }
         }
