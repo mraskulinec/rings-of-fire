@@ -42,7 +42,7 @@ export class ParticleSystem2DModel extends BasicParticleSystem2DModel{
     init(): void {
         for(let i=0;i<this.nParticles;i++){
             let s_time = i*this.lifespan/this.nParticles //the spawntime of the particle
-            this.particles.push(new Particle(i,s_time,V2(this.rand(this.width),this.rand(this.height)), 0, Color.FromRGBA(1,0,0)))
+            this.particles.push(new Particle(i,s_time,V2(this.rand(this.width),this.rand(this.height)), 0, Color.FromRGBA(1,1,0)))
         }
     }
 
@@ -72,7 +72,7 @@ export class ParticleSystem2DModel extends BasicParticleSystem2DModel{
                 } else {
                     p.radius = this.radius - ((t-p.spawntime) % this.lifespan) / this.lifespan
                     p.position = (p.init_pos).plus(V2(Math.cos(((t-p.spawntime) % this.lifespan) + p.id), this.speed * ((t-p.spawntime) % this.lifespan)));
-                    p.color = Color.FromRGBA(1,((t-p.spawntime) % this.lifespan) / this.lifespan,0);
+                    p.color = Color.FromRGBA(1,1-(((t-p.spawntime) % this.lifespan) / this.lifespan),0);
                 }
             }
         }
