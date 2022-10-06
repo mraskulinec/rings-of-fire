@@ -20,7 +20,7 @@ export class ParticleSystem2DModel extends BasicParticleSystem2DModel{
 
     exampleParticleParam:number=1
 
-    lifespan = 1;
+    lifespan = 1.1;
     width = 1.5;
     height = 0.75;
     nParticles = 150;
@@ -39,10 +39,19 @@ export class ParticleSystem2DModel extends BasicParticleSystem2DModel{
         return (2*range)*Math.random()-range
     }
 
+    //the randomized starting position of a particle, weighted by lifespan
+    getRandomizedPosition(lifespan:number): Vec2 {
+        if (Math.abs(this.lifespan-lifespan)/(0.4) < 0.2) {
+            let x_pos = this.rand(this.width/5);
+            return V2(x_pos,this.rand(this.height))
+        }
+        return V2(this.rand(this.width),this.rand(this.height));
+    }
+
     init(): void {
         for(let i=0;i<this.nParticles;i++){
             let s_time = i*this.lifespan/this.nParticles //the spawntime of the particle
-            let life = this.lifespan*(Math.random()/4+0.75)
+            let life = this.lifespan*(2*Math.random()/5+0.6)
             this.particles.push(new Particle(i,life,s_time,V2(this.rand(this.width),this.rand(this.height)), 0, Color.FromRGBA(1,1,0)))
         }
     }
@@ -54,7 +63,8 @@ export class ParticleSystem2DModel extends BasicParticleSystem2DModel{
 
     //re-randomizes p's initial position
     recenter(p:Particle) {
-        p.init_pos = V2(this.rand(this.width),this.rand(this.height));
+        p.init_pos = this.getRandomizedPosition(p.lifespan);
+        //if the lifespan is closer to the actual value then give it a value closer to the center
         p.position = p.init_pos;
     }
 
