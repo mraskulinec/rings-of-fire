@@ -4,6 +4,10 @@ export class Particle extends Basic2DParticle{
     protected _color!:Color;
     protected _radius!:number;
     protected _alpha!:number;
+    protected _init_pos!:Vec2;
+    protected _life!:number;
+    protected _spawntime!:number;
+
 
     get color(){
         return this._color;
@@ -12,10 +16,32 @@ export class Particle extends Basic2DParticle{
         this._color = v;
     }
 
-    constructor(id:number, position?:Vec2, radius?:number, color?:Color) {
+    set init_pos(ip:Vec2) {
+        this._init_pos = ip;
+    }
+
+    get init_pos() {
+        return this._init_pos;
+    }
+
+    get life() {
+        return this._life;
+    }
+
+    set life(l:number) {
+        this._life = l;
+    }
+
+    get spawntime() {
+        return this._spawntime;
+    }
+
+    constructor(id:number, st:number, init_pos?:Vec2, radius?:number, color?:Color) {
         super();
         this._id = id;
-        if(position){this.position = position;}
+        this._spawntime = st;
+        this._life = 0;
+        if(init_pos){this.init_pos = init_pos; this.position = init_pos;}
         if(radius !== undefined){this.radius=radius;}
         if(color){this.color = color;}
     }

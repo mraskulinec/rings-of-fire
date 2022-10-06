@@ -31,7 +31,7 @@ export class ParticleSystem2DModel extends BasicParticleSystem2DModel{
 
     init(): void {
         for(let i=0;i<this.nParticles;i++){
-            this.particles.push(new Particle(i, Vec2.Random([-0.5,0.5]), 1, Color.Random()))
+            this.particles.push(new Particle(i, Vec2.Random([-0.2,0.5]), 1, Color.Random()))
         }
     }
 
