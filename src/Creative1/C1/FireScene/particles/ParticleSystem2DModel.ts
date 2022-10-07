@@ -37,7 +37,7 @@ export class ParticleSystem2DModel extends BasicParticleSystem2DModel{
         this.particleColor = Color.FromRGBA(1, 1, 0);
         this.width = 1.5;
         this.height = 0.75;
-        this.nParticles = 200;
+        this.nParticles = 150;
         this.radius = 1.4;
         this.speed = 10;
         this.rotation = 0;
