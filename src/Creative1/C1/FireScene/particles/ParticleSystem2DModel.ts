@@ -30,7 +30,7 @@ export class ParticleSystem2DModel extends BasicParticleSystem2DModel{
     constructor() {
         super();
         this.lifespan = 1.1; 
-        this.particleColor = Color.FromRGBA(1, 1, 0)
+        this.particleColor = Color.FromRGBA(1, 1, 0);
         this.width = 1.5;
         this.height = 0.75;
         this.nParticles = 150;
@@ -73,8 +73,7 @@ export class ParticleSystem2DModel extends BasicParticleSystem2DModel{
         let color = this.particleColor;
         for (let i = 0; i < this.nParticles; i++) {
             let p = this.particles[i];
-            p.color = color;
-            p.radius = this.radius;
+            p.color = this.particleColor;
         }
     }
 
@@ -91,6 +90,7 @@ export class ParticleSystem2DModel extends BasicParticleSystem2DModel{
 
 
     timeUpdate(t:number){
+        let color = this.particleColor;
         for(let p of this.particles){
             if (t>p.spawntime && p.life==0) {
                 //if the particle is not visible yet, give it a life
@@ -109,7 +109,16 @@ export class ParticleSystem2DModel extends BasicParticleSystem2DModel{
                     }
                     p.position = (p.init_pos).plus(V2(Math.cos(((t-p.spawntime) % p.lifespan) + p.id), this.speed * ((t-p.spawntime) % p.lifespan)));
                     //linearly move from RGB(1,1,0) to RGB(1,0,0)
-                    p.color = Color.FromRGBA(1,1-(((t-p.spawntime) % p.lifespan) / p.lifespan),0);
+
+                    if (color.b == 0) {
+                        p.color = Color.FromRGBA(color.r ,color.g - (((t-p.spawntime) % p.lifespan) / p.lifespan), color.b);
+                    } else if (color.r == 0) {
+                        p.color = Color.FromRGBA(color.r , color.g, color.b - (((t-p.spawntime) % p.lifespan) / p.lifespan));
+                    } else if (color.g == 0) {
+                        p.color = Color.FromRGBA(color.r - (((t-p.spawntime) % p.lifespan) / p.lifespan), color.g, color.b);
+                    } else {
+                        p.color = Color.FromRGBA(color.r - (((t-p.spawntime) % p.lifespan) / p.lifespan), color.g, color.b);
+                    }
                 }
             }
         }
