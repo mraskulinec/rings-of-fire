@@ -14,6 +14,7 @@ enum AppStateKeys{
     ParticleColor="ParticleColor",
     ParticleRadius="ParticleRadius",
     ParticleSpeed="FlameHeight",
+    ParticleRing="FireRing",
 }
 
 @ASerializable("ParticleSystem2DModel")
@@ -27,6 +28,7 @@ export class ParticleSystem2DModel extends BasicParticleSystem2DModel{
     height:number; 
     radius:number;
     speed:number;
+    rotation:number;
     origin:Vec2;
 
     constructor() {
@@ -35,9 +37,10 @@ export class ParticleSystem2DModel extends BasicParticleSystem2DModel{
         this.particleColor = Color.FromRGBA(1, 1, 0);
         this.width = 1.5;
         this.height = 0.75;
-        this.nParticles = 150;
+        this.nParticles = 200;
         this.radius = 1.4;
         this.speed = 10;
+        this.rotation = 0;
         this.origin = V2(0,0);
     }
 
@@ -119,8 +122,12 @@ export class ParticleSystem2DModel extends BasicParticleSystem2DModel{
                     if (p.radius <= 0.15) {
                         p.radius = 0;
                     }
-                    p.position = (p.init_pos).plus(V2(Math.cos(((t-p.spawntime) % p.lifespan) + p.id), this.speed * ((t-p.spawntime) % p.lifespan)));
-
+                    p.position = (p.init_pos).plus(V2(Math.cos(((t-p.spawntime) % p.lifespan) + p.id), this.speed * ((t-p.spawntime) % p.lifespan)))
+                    let tempPosition = this.origin
+                    let rotateX = tempPosition.x * Math.cos(this.rotation) - tempPosition.y * Math.sin(this.rotation);
+                    let rotateY = tempPosition.y * Math.cos(this.rotation) +  tempPosition.x * Math.sin(this.rotation);
+                    this.origin = V2(rotateX, rotateY)
+                    
                     if (color.b == 0) {
                         p.color = Color.FromRGBA(color.r ,color.g - 2 * (((t-p.spawntime) % p.lifespan) / p.lifespan), color.b);
                     } else if (color.r == 0) {

@@ -37,6 +37,12 @@ export class FireSceneModel extends CreativeSceneModelBase {
             self.particleSystem.signalParticleUpdate();
         })
 
+        appState.addSliderControl(ParticleSystem2DModel.AppStateKeys.ParticleRing, 0, -180, 180, 15);
+        this.subscribeToAppState(ParticleSystem2DModel.AppStateKeys.ParticleRing,(v:number)=>{
+            self.particleSystem.rotation = v;
+            self.particleSystem.signalParticleUpdate();
+        })
+
 
 
         this.particleSystem = new ParticleSystem2DModel();
