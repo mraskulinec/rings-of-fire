@@ -13,6 +13,7 @@ import {Particle} from "./Particle";
 enum AppStateKeys{
     ParticleColor="ParticleColor",
     ParticleRadius="ParticleRadius",
+    ParticleSpeed="FlameHeight",
 }
 
 @ASerializable("ParticleSystem2DModel")
@@ -48,9 +49,9 @@ export class ParticleSystem2DModel extends BasicParticleSystem2DModel{
         return Mat3.Translation2D(p.position).times(Mat3.Scale2D(p.radius));
     }
 
-    //changes the origin to v
+    //changes the origin to v (shifted by particle radius)
     moveOrigin(v:Vec2) {
-        this.origin = v;
+        this.origin = V2(v.x-this.radius/2,v.y);
     }
 
     //a random number in range [-range,range)

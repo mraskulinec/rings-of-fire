@@ -31,6 +31,14 @@ export class FireSceneModel extends CreativeSceneModelBase {
             self.particleSystem.signalParticleUpdate();
         })
 
+        appState.addSliderControl(ParticleSystem2DModel.AppStateKeys.ParticleSpeed, 10, 1, 20, 0.05);
+        this.subscribeToAppState(ParticleSystem2DModel.AppStateKeys.ParticleSpeed,(v:number)=>{
+            self.particleSystem.speed = v;
+            self.particleSystem.signalParticleUpdate();
+        })
+
+
+
         this.particleSystem = new ParticleSystem2DModel();
         this.particleSystem.init();
         this.addChild(this.particleSystem);
