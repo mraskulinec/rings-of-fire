@@ -98,6 +98,10 @@ export class ParticleSystem2DModel extends BasicParticleSystem2DModel{
 
     timeUpdate(t:number){
         let color = this.particleColor;
+        console.log('color')
+        console.log(color.r);
+        console.log(color.g);
+        console.log(color.b);
         for(let p of this.particles){
             if (t>p.spawntime && p.life==0) {
                 //if the particle is not visible yet, give it a life
@@ -115,16 +119,15 @@ export class ParticleSystem2DModel extends BasicParticleSystem2DModel{
                         p.radius = 0;
                     }
                     p.position = (p.init_pos).plus(V2(Math.cos(((t-p.spawntime) % p.lifespan) + p.id), this.speed * ((t-p.spawntime) % p.lifespan)));
-                    //linearly move from RGB(1,1,0) to RGB(1,0,0)
 
                     if (color.b == 0) {
-                        p.color = Color.FromRGBA(color.r ,color.g - (((t-p.spawntime) % p.lifespan) / p.lifespan), color.b);
+                        p.color = Color.FromRGBA(color.r ,color.g - 2 * (((t-p.spawntime) % p.lifespan) / p.lifespan), color.b);
                     } else if (color.r == 0) {
-                        p.color = Color.FromRGBA(color.r , color.g, color.b - (((t-p.spawntime) % p.lifespan) / p.lifespan));
+                        p.color = Color.FromRGBA(color.r , color.g, color.b - 2 * (((t-p.spawntime) % p.lifespan) / p.lifespan));
                     } else if (color.g == 0) {
-                        p.color = Color.FromRGBA(color.r - (((t-p.spawntime) % p.lifespan) / p.lifespan), color.g, color.b);
+                        p.color = Color.FromRGBA(color.r - 2 * (((t-p.spawntime) % p.lifespan) / p.lifespan), color.g, color.b);
                     } else {
-                        p.color = Color.FromRGBA(color.r - (((t-p.spawntime) % p.lifespan) / p.lifespan), color.g, color.b);
+                        p.color = Color.FromRGBA(color.r - 2 * (((t-p.spawntime) % p.lifespan) / p.lifespan), color.g, color.b);
                     }
                 }
             }
