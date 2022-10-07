@@ -51,7 +51,7 @@ export class ParticleSystem2DModel extends BasicParticleSystem2DModel{
 
     //changes the origin to v (shifted by particle radius)
     moveOrigin(v:Vec2) {
-        this.origin = V2(v.x-this.radius/2,v.y);
+        this.origin = V2(v.x,v.y);
     }
 
     //a random number in range [-range,range)
@@ -65,7 +65,7 @@ export class ParticleSystem2DModel extends BasicParticleSystem2DModel{
             let x_pos = this.rand(this.width/5)
             return V2(x_pos+this.origin.x,this.rand(this.height)+this.origin.y)
         }
-        return V2(this.rand(this.width)+this.origin.x,this.rand(this.height)+this.origin.y);
+        return V2(this.rand(this.width)+this.origin.x-this.radius/2,this.rand(this.height)+this.origin.y);
     }
 
     init(): void {
