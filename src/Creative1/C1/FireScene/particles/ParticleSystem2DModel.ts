@@ -63,9 +63,9 @@ export class ParticleSystem2DModel extends BasicParticleSystem2DModel{
     getRandomizedPosition(lifespan:number): Vec2 {
         if (Math.abs(this.lifespan-lifespan)/(0.4) < 0.2) {
             let x_pos = this.rand(this.width/5)
-            return V2(x_pos+this.origin.x,this.rand(this.height)+this.origin.y)
+            return V2(x_pos+this.origin.x-this.radius/2,this.rand(this.height)+this.origin.y-this.radius/2)
         }
-        return V2(this.rand(this.width)+this.origin.x-this.radius/2,this.rand(this.height)+this.origin.y);
+        return V2(this.rand(this.width)+this.origin.x-this.radius/2,this.rand(this.height)+this.origin.y-this.radius/2);
     }
 
     init(): void {
