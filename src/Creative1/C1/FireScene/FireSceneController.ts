@@ -30,4 +30,21 @@ export class FireSceneController extends CreativeSceneControllerBase {
         this.addModelViewSpec(ParticleSystem2DModel, ParticleSystem2DView);
     }
 
+    // onClick(event: AInteractionEvent): void {
+    //     let cursorWorldCoordinates:Vec2 = this.model.get2DWorldCoordinatesForCursorEvent(event);
+    //     this.model.click(cursorWorldCoordinates);
+    // }
+
+    dragStartCallback(event: AInteractionEvent, interaction?: ADragInteraction) {
+        let cursorWorldCoordinates:Vec2 = this.model.get2DWorldCoordinatesForCursorEvent(event);
+        this.model.click(cursorWorldCoordinates);
+    }
+    dragEndCallback(event: AInteractionEvent, interaction?: ADragInteraction) {
+        let cursorWorldCoordinates:Vec2 = this.model.get2DWorldCoordinatesForCursorEvent(event);
+        this.model.click(cursorWorldCoordinates);
+    }
+    dragMoveCallback(event: AInteractionEvent, interaction?: ADragInteraction) {
+        let cursorWorldCoordinates:Vec2 = this.model.get2DWorldCoordinatesForCursorEvent(event);
+        this.model.click(cursorWorldCoordinates);
+    }
 }

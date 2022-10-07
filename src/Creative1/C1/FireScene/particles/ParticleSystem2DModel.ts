@@ -26,6 +26,7 @@ export class ParticleSystem2DModel extends BasicParticleSystem2DModel{
     height:number; 
     radius:number;
     speed:number;
+    origin:Vec2;
 
     constructor() {
         super();
@@ -36,6 +37,7 @@ export class ParticleSystem2DModel extends BasicParticleSystem2DModel{
         this.nParticles = 150;
         this.radius = 1.4;
         this.speed = 10;
+        this.origin = V2(0,0);
     }
 
     get particles(): Particle[] {
@@ -46,6 +48,11 @@ export class ParticleSystem2DModel extends BasicParticleSystem2DModel{
         return Mat3.Translation2D(p.position).times(Mat3.Scale2D(p.radius));
     }
 
+    //changes the origin to v
+    moveOrigin(v:Vec2) {
+        this.origin = v;
+    }
+
     //a random number in range [-range,range)
     rand(range:number): number {
         return (2*range)*Math.random()-range
@@ -54,10 +61,10 @@ export class ParticleSystem2DModel extends BasicParticleSystem2DModel{
     //the randomized starting position of a particle, weighted by lifespan
     getRandomizedPosition(lifespan:number): Vec2 {
         if (Math.abs(this.lifespan-lifespan)/(0.4) < 0.2) {
-            let x_pos = this.rand(this.width/5);
-            return V2(x_pos,this.rand(this.height))
+            let x_pos = this.rand(this.width/5)
+            return V2(x_pos+this.origin.x,this.rand(this.height)+this.origin.y)
         }
-        return V2(this.rand(this.width),this.rand(this.height));
+        return V2(this.rand(this.width)+this.origin.x,this.rand(this.height)+this.origin.y);
     }
 
     init(): void {

@@ -36,6 +36,10 @@ export class FireSceneModel extends CreativeSceneModelBase {
         this.addChild(this.particleSystem);
     }
 
+    click(v: Vec2) {
+        this.particleSystem.moveOrigin(v);
+    }
+
     timeUpdate(t: number) {
         this.particleSystem.timeUpdate(t);
         // for(let c of this.children){
